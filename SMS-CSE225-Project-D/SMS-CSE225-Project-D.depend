@@ -1,0 +1,34 @@
+# depslib dependency file v1.0
+1716226200 source:d:\codeblocks\sms-cse225-project-d\captcha.cpp
+	"Captcha.h"
+
+1716226180 d:\codeblocks\sms-cse225-project-d\captcha.h
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<thread>
+	<chrono>
+
+1716227547 source:d:\codeblocks\sms-cse225-project-d\loginsystem.cpp
+	"LoginSystem.h"
+	<iostream>
+	<fstream>
+
+1716227532 d:\codeblocks\sms-cse225-project-d\loginsystem.h
+	"User.h"
+	<unordered_map>
+	<string>
+	<conio.h>
+
+1716227475 d:\codeblocks\sms-cse225-project-d\user.h
+	<string>
+
+1716227579 source:d:\codeblocks\sms-cse225-project-d\main.cpp
+	"User.h"
+	"LoginSystem.h"
+	<iostream>
+
+1716227510 source:d:\codeblocks\sms-cse225-project-d\user.cpp
+	"User.h"
+	<iostream>
+
