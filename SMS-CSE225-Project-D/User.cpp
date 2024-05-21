@@ -1,34 +1,39 @@
 #include "User.h"
 #include <iostream>
 
-User::User(const std::string& username, const std::string& password)
+using namespace std;
+
+const string GREEN_TEXT = "\033[32m";
+const string RESET_TEXT = "\033[0m";
+
+User::User(const string& username, const string& password)
     : username(username), password(password) {}
 
-std::string User::getUsername() const {
+string User::getUsername() const {
     return username;
 }
 
-bool User::checkPassword(const std::string& password) const {
+bool User::checkPassword(const string& password) const {
     return this->password == password;
 }
 
-Admin::Admin(const std::string& username, const std::string& password)
+Admin::Admin(const string& username, const string& password)
     : User(username, password) {}
 
 void Admin::display() const {
-    std::cout << "Admin: " << username << std::endl;
+    cout << GREEN_TEXT << "Admin: " << username << RESET_TEXT << endl;
 }
 
-Teacher::Teacher(const std::string& username, const std::string& password)
+Teacher::Teacher(const string& username, const string& password)
     : User(username, password) {}
 
 void Teacher::display() const {
-    std::cout << "Teacher: " << username << std::endl;
+    cout << GREEN_TEXT << "Teacher: " << username << RESET_TEXT << endl;
 }
 
-Student::Student(const std::string& username, const std::string& password)
+Student::Student(const string& username, const string& password)
     : User(username, password) {}
 
 void Student::display() const {
-    std::cout << "Student: " << username << std::endl;
+    cout << GREEN_TEXT << "Student: " << username << RESET_TEXT << endl;
 }

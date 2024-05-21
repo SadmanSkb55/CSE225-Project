@@ -2,64 +2,70 @@
 #include <iostream>
 #include <fstream>
 
-std::string LoginSystem::getMaskedPassword() {
-    std::string password;
+using namespace std;
+
+const string GREEN_TEXT = "\033[32m";
+const string RESET_TEXT = "\033[0m";
+
+string LoginSystem::getMaskedPassword() {
+    string password;
     char ch;
     while ((ch = _getch()) != '\r') { // '\r' is the Enter key
         if (ch == '\b' && !password.empty()) { // Handle backspace
             password.pop_back();
-            std::cout << "\b \b";
+            cout << "\b \b";
         } else if (ch != '\b') {
             password.push_back(ch);
-            std::cout << '*';
+            cout << '*';
         }
     }
-    std::cout << std::endl;
+    cout << endl;
     return password;
 }
 
 LoginSystem::LoginSystem() {}
 
 User* LoginSystem::login() {
-    std::string username, password;
+    string username, password;
 
-    std::cout << "Username: ";
-    std::cin >> username;
+    while (true) {
+        cout << GREEN_TEXT << "Username: " << RESET_TEXT;
+        cin >> username;
 
-    std::cout << "Password: ";
-    password = getMaskedPassword();
+        cout << GREEN_TEXT << "Password: " << RESET_TEXT;
+        password = getMaskedPassword();
 
-    // Check all user types
-    std::ifstream file;
-    std::string fileUsername, filePassword;
+        // Check all user types
+        ifstream file;
+        string fileUsername, filePassword;
 
-    // Check admin
-    file.open("admin.txt");
-    while (file >> fileUsername >> filePassword) {
-        if (username == fileUsername && password == filePassword) {
-            return new Admin(username, password);
+        // Check admin
+        file.open("admin.txt");
+        while (file >> fileUsername >> filePassword) {
+            if (username == fileUsername && password == filePassword) {
+                return new Admin(username, password);
+            }
         }
-    }
-    file.close();
+        file.close();
 
-    // Check teacher
-    file.open("teacher.txt");
-    while (file >> fileUsername >> filePassword) {
-        if (username == fileUsername && password == filePassword) {
-            return new Teacher(username, password);
+        // Check teacher
+        file.open("teacher.txt");
+        while (file >> fileUsername >> filePassword) {
+            if (username == fileUsername && password == filePassword) {
+                return new Teacher(username, password);
+            }
         }
-    }
-    file.close();
+        file.close();
 
-    // Check student
-    file.open("student.txt");
-    while (file >> fileUsername >> filePassword) {
-        if (username == fileUsername && password == filePassword) {
-            return new Student(username, password);
+        // Check student
+        file.open("student.txt");
+        while (file >> fileUsername >> filePassword) {
+            if (username == fileUsername && password == filePassword) {
+                return new Student(username, password);
+            }
         }
-    }
-    file.close();
+        file.close();
 
-    std::cout << "Invalid username or password." << std::endl;
-    return nullptr;
+        cout << GREEN_TEXT << "Invalid username or password. Please try again." << RESET_TEXT << endl;
+    }
 }

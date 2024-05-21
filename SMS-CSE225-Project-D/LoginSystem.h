@@ -2,13 +2,14 @@
 #define LOGINSYSTEM_H
 
 #include "User.h"
-#include <unordered_map>
 #include <string>
 #include <conio.h> // For _getch()
 
+using namespace std;
+
 class LoginSystem {
 private:
-    std::string getMaskedPassword();
+    string getMaskedPassword();
 
 public:
     LoginSystem();
