@@ -3,37 +3,36 @@
 
 using namespace std;
 
-const string GREEN_TEXT = "\033[32m";
-const string RESET_TEXT = "\033[0m";
-
-User::User(const string& username, const string& password)
-    : username(username), password(password) {}
+User::User(const string& name, const string& password)
+    : name(name), password(password) {}
 
 string User::getUsername() const {
     return username;
 }
 
-bool User::checkPassword(const string& password) const {
-    return this->password == password;
+bool User::setPassword(const string& newPassword) {
+    // Add password validation logic if needed
+    password = newPassword;
+    return true; // Password successfully set
 }
 
-Admin::Admin(const string& username, const string& password)
-    : User(username, password) {}
+Admin::Admin(const string& name, const string& password)
+    : User(name, password) {}
 
 void Admin::display() const {
-    cout << GREEN_TEXT << "Admin: " << username << RESET_TEXT << endl;
+    cout << "Admin: " << name << endl;
 }
 
-Teacher::Teacher(const string& username, const string& password)
-    : User(username, password) {}
+Teacher::Teacher(const string& name, const string& password)
+    : User(name, password) {}
 
 void Teacher::display() const {
-    cout << GREEN_TEXT << "Teacher: " << username << RESET_TEXT << endl;
+    cout << "Teacher: " << name << endl;
 }
 
-Student::Student(const string& username, const string& password)
-    : User(username, password) {}
+Student::Student(const string& name, const string& id, const string& password)
+    : User(name, password), id(id) {}
 
 void Student::display() const {
-    cout << GREEN_TEXT << "Student: " << username << RESET_TEXT << endl;
+    cout << "Student: " << name << " (ID: " << id << ")" << endl;
 }
