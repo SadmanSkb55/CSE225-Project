@@ -32,7 +32,21 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Captcha.cpp" />
+		<Unit filename="Captcha.h" />
+		<Unit filename="LoginSystem.cpp" />
+		<Unit filename="LoginSystem.h" />
+		<Unit filename="SMS-CSE225-Project-D.cbp" />
+		<Unit filename="SMS-CSE225-Project-D.depend" />
+		<Unit filename="SMS-CSE225-Project-D.layout" />
+		<Unit filename="SignupSystem.cpp" />
+		<Unit filename="SignupSystem.h" />
+		<Unit filename="User.cpp" />
+		<Unit filename="User.h" />
+		<Unit filename="admin.txt" />
 		<Unit filename="main.cpp" />
+		<Unit filename="student.txt" />
+		<Unit filename="teacher.txt" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

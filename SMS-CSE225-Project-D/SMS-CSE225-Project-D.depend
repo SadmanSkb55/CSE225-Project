@@ -9,7 +9,7 @@
 	<thread>
 	<chrono>
 
-1716314088 source:d:\codeblocks\sms-cse225-project-d\loginsystem.cpp
+1716873118 source:d:\codeblocks\sms-cse225-project-d\loginsystem.cpp
 	"LoginSystem.h"
 	<iostream>
 	<fstream>
@@ -22,21 +22,62 @@
 1716873153 d:\codeblocks\sms-cse225-project-d\user.h
 	<string>
 
-1716872794 source:d:\codeblocks\sms-cse225-project-d\main.cpp
+1718769777 source:d:\codeblocks\sms-cse225-project-d\main.cpp
 	"User.h"
 	"LoginSystem.h"
+	"SignUp.h"
 	<iostream>
 
-1716873052 source:d:\codeblocks\sms-cse225-project-d\user.cpp
+1716873153 source:d:\codeblocks\sms-cse225-project-d\user.cpp
 	"User.h"
 	<iostream>
 
-1716872136 d:\codeblocks\sms-cse225-project-d\signupsystem.h
+1716659422 d:\codeblocks\sms-cse225-project-d\signupsystem.h
+	"User.h"
 	<string>
 
-1716872136 source:d:\codeblocks\sms-cse225-project-d\signupsystem.cpp
+1716659423 source:d:\codeblocks\sms-cse225-project-d\signupsystem.cpp
 	"SignupSystem.h"
 	<iostream>
 	<fstream>
-	<cctype>
+
+1716873118 d:\codeblocks\sms-cse225-project-d\loginsystem.cpp
+	"LoginSystem.h"
+	<iostream>
+	<fstream>
+
+1716893723 d:\codeblocks\sms-cse225-project-d\signup.h
+	<string>
+
+1718770238 source:d:\codeblocks\sms-cse225-project-d\signup.cpp
+	"SignUp.h"
+	<iostream>
+	<fstream>
+	<sstream>
+
+1718736230 source:d:\codeblocks\sms-cse225-project-d\course.cpp
+	"Course.h"
+	<iostream>
+
+1718736234 d:\codeblocks\sms-cse225-project-d\course.h
+	<string>
+
+1718742181 source:d:\codeblocks\sms-cse225-project-d\coursecatalogue.cpp
+	"CourseCatalogue.h"
+	<iostream>
+
+1718742197 d:\codeblocks\sms-cse225-project-d\coursecatalogue.h
+	"University.h"
+	<string>
+
+1718736227 d:\codeblocks\sms-cse225-project-d\university.h
+	"Course.h"
+	<unordered_map>
+	<string>
+
+1718736223 source:d:\codeblocks\sms-cse225-project-d\university.cpp
+	"University.h"
+	<iostream>
+	<fstream>
+	<sstream>
 

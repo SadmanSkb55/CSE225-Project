@@ -1,0 +1,44 @@
+ARC 111 Foundation Design Studio 4cr
+ARC 214 Architecture Design Studio 4cr
+ARC 241 Architectural Heritage 3cr
+ARC 261 Environment and Building System 3cr
+ARC 281 Building Structures 2cr
+ARC 316 Professional Studies Studio 6cr
+ARC 418 Design and Allied Studies Studio 6cr
+ARC 510 Advanced Studies Studio 4cr
+CSE 115 Programming Language 4cr
+CSE 225 Data Structure and Algorithm 3cr
+CSE 299 Junior Design 1cr
+CSE 323 Operating System Design 3cr
+CSE 327 Software Engineering 3cr
+CSE 373 Design Analysis and Algorithm 3cr
+CSE 499 Senior Design 1cr
+EEE 141 Electrical Circuits 4cr
+EEE 111 Analog Electronics 4cr
+EEE 211 Digital Logic System 3cr
+EEE 361 Electromagnetic Fields 3cr
+EEE 299 Junior Design 1cr
+EEE 312 Power Electronics 3cr
+EEE 342+EEE 363 Control Engineering and Electrical Machines 6cr
+EEE 499 Senior Design 1cr
+LAW 101 Introduction to the Legal System & Legal Processes 4cr
+LAW 201 The Constitutional Law of Bangladesh 4cr
+LAW 211 Family and Property Law 4cr
+LAW 213 Law of Crimes 4cr
+LAW 311 Law of Criminal Procedure 4cr
+LAW 314 Legal Ethics 3cr
+LAW 420 Clinical Legal Education and Community Legal Service 4cr
+LAW 421 Public International Law 3cr
+MAT 120 Calculus and Analytic Geometry-I 3cr
+MAT 125 Introduction to Linear Algebra 3cr
+MAT 130 Calculus and Analytic Geometry-II 3cr
+MAT 250 Calculus and Analytic Geometry-IV 3cr
+MAT 350 Engineering Mathematics 3cr
+MAT 361 Probability and Statistics 3cr
+ENG 111 Public Speaking 3cr
+BEN 205 Bengali Language and Literature 3cr
+PHI 104 Introduction to Ethics 3cr
+HIS 102 Introduction to World Civilization 3cr
+HIS 103 Emergence of Bangladesh 3cr
+POL 101 Introduction to Political Science 3cr
+SOC 101 Introduction to Social Science 3cr
