@@ -14,19 +14,27 @@
 	<iostream>
 	<fstream>
 
-1716873118 d:\codeblocks\sms-cse225-project-d\loginsystem.h
+1718868400 d:\codeblocks\sms-cse225-project-d\loginsystem.h
 	"User.h"
 	<string>
 	<conio.h>
 
-1716873153 d:\codeblocks\sms-cse225-project-d\user.h
+1718868589 d:\codeblocks\sms-cse225-project-d\user.h
 	<string>
 
-1718769777 source:d:\codeblocks\sms-cse225-project-d\main.cpp
+1718867603 source:d:\codeblocks\sms-cse225-project-d\main.cpp
 	"User.h"
 	"LoginSystem.h"
-	"SignUp.h"
+	"CourseCatalogue.h"
+	"University.h"
+	"OfferedCourses.h"
+	"AdvisingSystem.h"
+	"CourseEnrollmentSystem.h"
+	"signup.h"
 	<iostream>
+	<fstream>
+	<sstream>
+	<string>
 
 1716873153 source:d:\codeblocks\sms-cse225-project-d\user.cpp
 	"User.h"
@@ -46,7 +54,7 @@
 	<iostream>
 	<fstream>
 
-1716893723 d:\codeblocks\sms-cse225-project-d\signup.h
+1718868482 d:\codeblocks\sms-cse225-project-d\signup.h
 	<string>
 
 1718770238 source:d:\codeblocks\sms-cse225-project-d\signup.cpp
@@ -55,29 +63,59 @@
 	<fstream>
 	<sstream>
 
-1718736230 source:d:\codeblocks\sms-cse225-project-d\course.cpp
+1718793412 source:d:\codeblocks\sms-cse225-project-d\course.cpp
 	"Course.h"
 	<iostream>
 
-1718736234 d:\codeblocks\sms-cse225-project-d\course.h
+1718868247 d:\codeblocks\sms-cse225-project-d\course.h
 	<string>
 
 1718742181 source:d:\codeblocks\sms-cse225-project-d\coursecatalogue.cpp
 	"CourseCatalogue.h"
 	<iostream>
 
-1718742197 d:\codeblocks\sms-cse225-project-d\coursecatalogue.h
+1718868292 d:\codeblocks\sms-cse225-project-d\coursecatalogue.h
 	"University.h"
 	<string>
 
-1718736227 d:\codeblocks\sms-cse225-project-d\university.h
+1718868522 d:\codeblocks\sms-cse225-project-d\university.h
 	"Course.h"
 	<unordered_map>
 	<string>
 
-1718736223 source:d:\codeblocks\sms-cse225-project-d\university.cpp
+1718825186 source:d:\codeblocks\sms-cse225-project-d\university.cpp
 	"University.h"
 	<iostream>
 	<fstream>
 	<sstream>
+
+1718834413 source:d:\codeblocks\sms-cse225-project-d\offeredcourses.cpp
+	"OfferedCourses.h"
+	<iostream>
+	<fstream>
+	<sstream>
+
+1718868442 d:\codeblocks\sms-cse225-project-d\offeredcourses.h
+	<string>
+	<vector>
+	<unordered_map>
+
+1718862259 source:d:\codeblocks\sms-cse225-project-d\advisingsystem.cpp
+	"AdvisingSystem.h"
+	<iostream>
+	<fstream>
+	<sstream>
+
+1718868202 d:\codeblocks\sms-cse225-project-d\advisingsystem.h
+	<string>
+	<vector>
+
+1718866625 source:d:\codeblocks\sms-cse225-project-d\courseenrollmentsystem.cpp
+	"CourseEnrollmentSystem.h"
+	<iostream>
+	<fstream>
+	<sstream>
+
+1718868366 d:\codeblocks\sms-cse225-project-d\courseenrollmentsystem.h
+	<string>
 

@@ -1,20 +1,30 @@
 #include "User.h"
 #include "LoginSystem.h"
+#include "CourseCatalogue.h"
+#include "University.h"
+#include "OfferedCourses.h"
+#include "AdvisingSystem.h"
+#include "CourseEnrollmentSystem.h"
+#include "signup.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <string>
 
 using namespace std;
 
-void displayStudentMenu() {
+void displayStudentMenu()
+{
     cout << "Student Menu:" << endl;
     cout << "1. Show all courses" << endl;
     cout << "2. Show specific courses" << endl;
     cout << "3. Advise course" << endl;
-    cout << "4. Count CGPA" << endl;
+    cout << "4. Grades" << endl;
     cout << "5. Logout" << endl;
 }
 
-void displayAdminMenu() {
+void displayAdminMenu()
+{
     cout << "Admin Menu:" << endl;
     cout << "1. Show all courses" << endl;
     cout << "2. Show specific courses" << endl;
@@ -23,20 +33,162 @@ void displayAdminMenu() {
     cout << "5. Logout" << endl;
 }
 
-void displayTeacherMenu() {
+void displayTeacherMenu()
+{
     cout << "Teacher Menu:" << endl;
     cout << "1. Show all courses" << endl;
     cout << "2. Show specific courses" << endl;
-    cout << "3. Advise course" << endl;
+    cout << "3. Offer Course" << endl;
     cout << "4. Student grading" << endl;
     cout << "5. Logout" << endl;
 }
 
-int main() {
+void displaySignUpMenu()
+{
+    cout << "Signup as:" << endl;
+    cout << "1. Student" << endl;
+    cout << "2. Teacher" << endl;
+    cout << "3. Admin" << endl;
+    cout << "4. Back" << endl;
+}
+
+void displayTeacherMenu2()
+{
+    std::cout << "Teacher Menu:" << std::endl;
+    std::cout << "1. Show all offered courses" << std::endl;
+    std::cout << "2. Offer Course" << std::endl;
+    std::cout << "3. Remove a offered course" << std::endl;
+    cout << "4. Back" << endl;
+}
+
+void displayAdvisingMenu()
+{
+    cout << "Advising Menu:" << endl;
+    cout << "1. Show all offered courses" << endl;
+    cout << "2. Show offered courses with sections" << endl;
+    cout << "3. Add course" << endl;
+    cout << "4. Drop course" << endl;
+    cout << "5. Back" << endl;
+}
+
+void gradeStudent()
+{
+    string studentName, studentID, courseCode, grade;
+    bool studentFound = false;
+
+    cout << "Enter student name: ";
+    cin >> studentName;
+    cout << "Enter student ID: ";
+    cin >> studentID;
+    cout << "Enter course code: ";
+    cin >> courseCode;
+    cout << "Enter grade: ";
+    cin >> grade;
+
+    // Check if the student exists in student_info.txt
+    ifstream studentInfoFile("studentinfo.txt");
+    if (!studentInfoFile.is_open())
+    {
+        cout << "Error opening student info file." << endl;
+        return;
+    }
+
+    string line;
+    while (getline(studentInfoFile, line))
+    {
+        stringstream ss(line);
+        string name, id, dept, major, password;
+
+        ss >> name >> id >> dept >> major >> password;
+
+        if (name == studentName && id == studentID)
+        {
+            studentFound = true;
+            break;
+        }
+    }
+
+    studentInfoFile.close();
+
+    if (!studentFound)
+    {
+        cout << "Student not found." << endl;
+        return;
+    }
+
+    // Save the grade to grading.txt
+    ofstream gradingFile("grading.txt", ios::app);
+    if (!gradingFile.is_open())
+    {
+        cout << "Error opening grading file." << endl;
+        return;
+    }
+
+    gradingFile << studentName << " " << studentID << " " << courseCode << " " << grade << endl;
+    gradingFile.close();
+
+    cout << "Grade recorded successfully." << endl;
+}
+
+void displayGrades(const string& studentName, const string& studentID)
+{
+    ifstream gradingFile("grading.txt");
+    if (!gradingFile.is_open())
+    {
+        cout << "Error opening grading file." << endl;
+        return;
+    }
+
+    bool found = false;
+    string line;
+    while (getline(gradingFile, line))
+    {
+        stringstream ss(line);
+        string name, id, courseCode, grade;
+
+        ss >> name >> id >> courseCode >> grade;
+
+        if (name == studentName && id == studentID)
+        {
+            found = true;
+            cout << "Course: " << courseCode << ", Grade: " << grade << endl;
+        }
+    }
+
+    gradingFile.close();
+
+    if (!found)
+    {
+        cout << "No grades found for " << studentName << " with ID " << studentID << "." << endl;
+    }
+}
+
+
+int main()
+{
+
     LoginSystem loginSystem;
+    CourseCatalogue catalogue;
+    SignUp signUp;
+    University unit;
+    OfferedCourses offeredCourses;
+    offeredCourses.loadCourses("courses.txt");
+
+    unit.loadCoursesFromFile("courses.txt");
+
+    AdvisingSystem advisingSystem;
+    advisingSystem.loadOfferedCourses("offeredCourses.txt");
+
+    CourseEnrollmentSystem system;
+    system.loadOfferedCourses("offeredCourses.txt");
+    system.loadEnrolledCourses("enrolledCourses.txt");
+
+    User* loggedInUser = nullptr;
+
     int choice;
 
-    while (true) {
+    while (true)
+    {
         cout << "----- Main Menu -----" << endl;
         cout << "1. Login" << endl;
         cout << "2. Signup" << endl;
@@ -44,131 +196,347 @@ int main() {
         cout << "Enter your choice: ";
         cin >> choice;
 
-        switch (choice) {
-            case 1: {
-                User* loggedInUser = loginSystem.login();
-                if (loggedInUser) {
-                    if (dynamic_cast<Student*>(loggedInUser)) {
-                        // Student specific menu
-                        while (true) {
-                            displayStudentMenu();
-                            cout << "Enter your choice: ";
-                            cin >> choice;
+        switch (choice)
+        {
+        case 1:
+        {
+            User* loggedInUser = loginSystem.login();
+            if (loggedInUser)
+            {
+                if (dynamic_cast<Student*>(loggedInUser))
+                {
+                    // Student specific menu
+                    while (true)
+                    {
+                        displayStudentMenu();
+                        cout << "Enter your choice: ";
+                        cin >> choice;
 
-                            switch (choice) {
-                                // Implement student menu functionality
+                        switch (choice)
+                        {
+                        case 1:
+                        {
+                            cout << "Showing all courses..." << endl;
+                            catalogue.showAllCourses();
+                            break;
+                        }
+                        case 2:
+                        {
+                            string department;
+                            cout << "Enter department: ";
+                            cin >> department;
+                            cout << "Showing specific courses..." << endl;
+                            catalogue.showSpecificCourses(department);
+                            break;
+                        }
+                        case 3:
+                        {
+                            while (true)
+                            {
+                                displayAdvisingMenu();
+                                cout << "Enter your choice: ";
+                                cin >> choice;
+
+                                switch (choice)
+                                {
                                 case 1:
-                                    cout << "Showing all courses..." << endl;
+                                {
+                                    advisingSystem.printAllOfferedCourses();
                                     break;
+                                }
                                 case 2:
-                                    cout << "Showing specific courses..." << endl;
+                                {
+                                    advisingSystem.printAllOfferedCourses();
                                     break;
+                                }
                                 case 3:
-                                    cout << "Advising a course..." << endl;
+                                {
+                                    string studentID, courseCode, time, facultyInitial;
+                                    int section;
+                                    cout << "Enter your ID: ";
+                                    cin >> studentID;
+                                    cout << "Enter course code: ";
+                                    cin >> courseCode;
+                                    cout << "Enter section: ";
+                                    cin >> section;
+                                    cout << "Enter time: ";
+                                    cin >> time;
+                                    cout << "Enter faculty initials: ";
+                                    cin >> facultyInitial;
+                                    advisingSystem.addCourse(studentID, courseCode, section, time, facultyInitial);
+                                    system.enrollStudent(studentID, courseCode, section);
                                     break;
+                                }
                                 case 4:
-                                    cout << "Counting CGPA..." << endl;
+                                {
+                                    string studentID, courseCode;
+                                    int section;
+                                    cout << "Enter your ID: ";
+                                    cin >> studentID;
+                                    cout << "Enter course code: ";
+                                    cin >> courseCode;
+                                    cout << "Enter section: ";
+                                    cin >> section;
+                                    advisingSystem.dropCourse(studentID, courseCode, section);
+                                    system.unenrollStudent(studentID, courseCode, section);
                                     break;
+                                }
                                 case 5:
-                                    cout << "Logging out." << endl;
-                                    delete loggedInUser;
-                                    loggedInUser = nullptr;
+                                {
+back_to_student_menu:
                                     break;
+                                }
                                 default:
+                                {
                                     cout << "Invalid choice. Please try again." << endl;
                                     break;
+                                }
+                                }
                             }
-
-                            if (loggedInUser == nullptr)
-                                break;
+                            break;
                         }
-                    } else if (dynamic_cast<Teacher*>(loggedInUser)) {
-                        // Teacher specific menu
-                        while (true) {
-                            displayTeacherMenu();
-                            cout << "Enter your choice: ";
-                            cin >> choice;
 
-                            switch (choice) {
-                                // Implement teacher menu functionality
-                                case 1:
-                                    cout << "Showing all courses..." << endl;
-                                    break;
-                                case 2:
-                                    cout << "Showing specific courses..." << endl;
-                                    break;
-                                case 3:
-                                    cout << "Advising a course..." << endl;
-                                    break;
-                                case 4:
-                                    cout << "Grading a student..." << endl;
-                                    break;
-                                case 5:
-                                    cout << "Logging out." << endl;
-                                    delete loggedInUser;
-                                    loggedInUser = nullptr;
-                                    break;
-                                default:
-                                    cout << "Invalid choice. Please try again." << endl;
-                                    break;
-                            }
+                        case 4:
+                        {
+                            cout << "Grades:" << endl;
+                            string studentName, studentID, courseCode, grade;
 
-                            if (loggedInUser == nullptr)
-                                break;
+                            cout << "Enter student name: ";
+                            cin >> studentName;
+                            cout << "Enter student ID: ";
+                            cin >> studentID;
+
+                            displayGrades(studentName, studentID);
+
+                            break;
                         }
-                    } else if (dynamic_cast<Admin*>(loggedInUser)) {
-                        // Admin specific menu
-                        while (true) {
-                            displayAdminMenu();
-                            cout << "Enter your choice: ";
-                            cin >> choice;
-
-                            switch (choice) {
-                                // Implement admin menu functionality
-                                case 1:
-                                    cout << "Showing all courses..." << endl;
-                                    break;
-                                case 2:
-                                    cout << "Showing specific courses..." << endl;
-                                    break;
-                                case 3:
-                                    cout << "Adding a course..." << endl;
-                                    break;
-                                case 4:
-                                    cout << "Removing a course..." << endl;
-                                    break;
-                                case 5:
-                                    cout << "Logging out." << endl;
-                                    delete loggedInUser;
-                                    loggedInUser = nullptr;
-                                    break;
-                                default:
-                                    cout << "Invalid choice. Please try again." << endl;
-                                    break;
-                            }
-
-                            if (loggedInUser == nullptr)
-                                break;
+                        case 5:
+                        {
+                            cout << "Logging out." << endl;
+                            delete loggedInUser;
+                            loggedInUser = nullptr;
+                            break;
                         }
+                        default:
+                        {
+                            cout << "Invalid choice. Please try again." << endl;
+                            break;
+                        }
+                        }
+
+                        if (loggedInUser == nullptr)
+                            break;
                     }
-
-                    // After handling specific user actions, break to main menu
-                    break;
                 }
+                else if (dynamic_cast<Teacher*>(loggedInUser))
+                {
+                    // Teacher specific menu
+                    while (true)
+                    {
+                        displayTeacherMenu();
+                        cout << "Enter your choice: ";
+                        cin >> choice;
+
+                        switch (choice)
+                        {
+                        case 1:
+                        {
+                            cout << "Showing all courses..." << endl;
+                            catalogue.showAllCourses();
+                            break;
+                        }
+                        case 2:
+                        {
+                            string department;
+                            cout << "Enter department: ";
+                            cin >> department;
+                            cout << "Showing specific courses..." << endl;
+                            catalogue.showSpecificCourses(department);
+                            break;
+                        }
+                        case 3:
+                        {
+                            while (true)
+                            {
+                                displayTeacherMenu2();
+                                std::cout << "Enter your choice: ";
+                                std::cin >> choice;
+
+                                switch (choice)
+                                {
+                                case 1:
+                                {
+                                    std::cout << "Showing all courses..." << std::endl;
+                                    offeredCourses.printAllCourses();
+                                    break;
+                                }
+                                case 2:
+                                {
+                                    offeredCourses.offerCourse();
+                                    break;
+                                }
+                                case 3:
+                                {
+                                    std::cout <<"Course and Section Drop"<< std::endl;
+                                    string courseCode;
+                                    int sectionToRemove;
+                                    cout<<"Enter Course Code"<<endl;
+                                    cin>>courseCode;
+                                    cout<<"Section"<<endl;
+                                    cin>>sectionToRemove;
+                                    offeredCourses.removeOfferedSection(courseCode, sectionToRemove);
+                                    break;
+                                }
+                                case 4:
+                                {
+                                    std::cout <<"\n"<< std::endl;
+                                    break;
+                                }
+                                default:
+                                {
+                                    std::cout << "Invalid choice. Please try again." << std::endl;
+                                    break;
+                                }
+                                }
+
+                                if (choice == 3)
+                                    break;
+                            }
+                            break;
+                        }
+                        case 4:
+                        {
+                            cout << "Grading a student..." << endl;
+                            gradeStudent();
+                            break;
+                        }
+                        case 5:
+                        {
+                            cout << "Logging out." << endl;
+                            delete loggedInUser;
+                            loggedInUser = nullptr;
+                            break;
+                        }
+                        default:
+                        {
+                            cout << "Invalid choice. Please try again." << endl;
+                            break;
+                        }
+                        }
+
+                        if (loggedInUser == nullptr)
+                            break;
+                    }
+                }
+                else if (dynamic_cast<Admin*>(loggedInUser))
+                {
+                    // Admin specific menu
+                    while (true)
+                    {
+                        displayAdminMenu();
+                        cout << "Enter your choice: ";
+                        cin >> choice;
+
+                        switch (choice)
+                        {
+                        case 1:
+                        {
+                            cout << "Showing all courses..." << endl;
+                            catalogue.showAllCourses();
+                            break;
+                        }
+                        case 2:
+                        {
+                            string department;
+                            cout << "Enter department: ";
+                            cin >> department;
+                            cout << "Showing specific courses..." << endl;
+                            catalogue.showSpecificCourses(department);
+                            break;
+                        }
+                        case 3:
+                        {
+                            string dept, code, name;
+                            int credits;
+                            cout << "Enter department, course code, and course name: ";
+                            cin >> dept >> code;
+                            cin.ignore();
+                            getline(cin, name);
+                            cout << "Enter credits: ";
+                            cin >> credits;
+                            catalogue.addCourse(dept, code, name, credits);
+                            break;
+                        }
+                        case 4:
+                        {
+                            string department, code;
+                            cout << "Enter department and course code: ";
+                            cin >> department >> code;
+                            catalogue.removeCourse(department, code);
+                            break;
+                        }
+                        case 5:
+                        {
+                            cout << "Logging out." << endl;
+                            delete loggedInUser;
+                            loggedInUser = nullptr;
+                            break;
+                        }
+                        default:
+                        {
+                            cout << "Invalid choice. Please try again." << endl;
+                            break;
+                        }
+                        }
+
+                        if (loggedInUser == nullptr)
+                            break;
+                    }
+                }
+
+                // After handling specific user actions, break to main menu
                 break;
             }
-            case 2:
-                // Handle signup functionality
-                cout << "Signup functionality not implemented yet." << endl;
-                break;
-            case 3:
-                cout << "Exiting the program." << endl;
-                return 0;
-            default:
-                cout << "Invalid choice. Please try again." << endl;
-                break;
+            break;
+        }
+        case 2:
+// Handle signup functionality
+// cout << "Signup functionality not implemented yet." << endl;
+            int signUpChoice;
+            while (true)
+            {
+                displaySignUpMenu();
+                cout << "Enter your choice: " << endl;
+                cin >> signUpChoice;
+                cin.ignore(); // To ignore the newline character left in the buffer
+
+                switch (signUpChoice)
+                {
+                case 1:
+                    signUp.signUpStudent();
+                    break;
+                case 2:
+                    signUp.signUpTeacher();
+                    break;
+                case 3:
+                    signUp.signUpAdmin();
+                    break;
+                case 4:
+                    goto back_to_main_menu;
+                default:
+                    cout << "Invalid choice. Please try again." << endl;
+                }
+            }
+back_to_main_menu:
+            break;
+        case 3:
+            cout << "Exiting the program." << endl;
+            return 0;
+        default:
+            cout << "Invalid choice. Please try again." << endl;
+            break;
         }
     }
-
+    cout << "Exiting the program." << endl;
     return 0;
 }

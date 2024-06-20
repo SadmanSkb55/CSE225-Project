@@ -10,10 +10,14 @@ void Department::addCourse(string code, string name, int credits) {
     Course* newCourse = new Course(code, name, credits);
     newCourse->next = head;
     head = newCourse;
+    cout << "Added course: " << code << ", " << name << ", " << credits << " credits" << endl;
 }
 
 void Department::showCourses() {
     Course* current = head;
+    if (!current) {
+        cout << "No courses available." << endl;
+    }
     while (current) {
         cout << current->code << " " << current->name << " " << current->credits << "cr" << endl;
         current = current->next;
@@ -31,11 +35,11 @@ void Department::removeCourse(string code) {
                 head = current->next;
             }
             delete current;
+            cout << "Removed course: " << code << endl;
             return;
         }
         previous = current;
         current = current->next;
     }
-    cout << "Course not found!" << endl;
+    cout << "Course not found: " << code << endl;
 }
-
