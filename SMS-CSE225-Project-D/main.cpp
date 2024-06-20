@@ -11,6 +11,9 @@
 #include <sstream>
 #include <string>
 
+#include <cerrno>
+#include <cstring>
+
 using namespace std;
 
 void displayStudentMenu()
@@ -73,31 +76,31 @@ void displayAdvisingMenu()
 
 void gradeStudent()
 {
-    string studentName, studentID, courseCode, grade;
+    std::string studentName, studentID, courseCode, grade;
     bool studentFound = false;
 
-    cout << "Enter student name: ";
-    cin >> studentName;
-    cout << "Enter student ID: ";
-    cin >> studentID;
-    cout << "Enter course code: ";
-    cin >> courseCode;
-    cout << "Enter grade: ";
-    cin >> grade;
+    std::cout << "Enter student name: ";
+    std::cin >> studentName;
+    std::cout << "Enter student ID: ";
+    std::cin >> studentID;
+    std::cout << "Enter course code: ";
+    std::cin >> courseCode;
+    std::cout << "Enter grade: ";
+    std::cin >> grade;
 
     // Check if the student exists in student_info.txt
-    ifstream studentInfoFile("studentinfo.txt");
+    std::ifstream studentInfoFile("studentinfo.txt");
     if (!studentInfoFile.is_open())
     {
-        cout << "Error opening student info file." << endl;
+        std::cerr << "Error opening student info file: " << std::strerror(errno) << std::endl;
         return;
     }
 
-    string line;
-    while (getline(studentInfoFile, line))
+    std::string line;
+    while (std::getline(studentInfoFile, line))
     {
-        stringstream ss(line);
-        string name, id, dept, major, password;
+        std::stringstream ss(line);
+        std::string name, id, dept, major, password;
 
         ss >> name >> id >> dept >> major >> password;
 
@@ -112,46 +115,46 @@ void gradeStudent()
 
     if (!studentFound)
     {
-        cout << "Student not found." << endl;
+        std::cerr << "Student not found." << std::endl;
         return;
     }
 
     // Save the grade to grading.txt
-    ofstream gradingFile("grading.txt", ios::app);
+    std::ofstream gradingFile("grading.txt", std::ios::app);
     if (!gradingFile.is_open())
     {
-        cout << "Error opening grading file." << endl;
+        std::cerr << "Error opening grading file: " << std::strerror(errno) << std::endl;
         return;
     }
 
-    gradingFile << studentName << " " << studentID << " " << courseCode << " " << grade << endl;
+    gradingFile << studentName << " " << studentID << " " << courseCode << " " << grade << std::endl;
     gradingFile.close();
 
-    cout << "Grade recorded successfully." << endl;
+    std::cout << "Grade recorded successfully." << std::endl;
 }
 
-void displayGrades(const string& studentName, const string& studentID)
+void displayGrades(const std::string& studentName, const std::string& studentID)
 {
-    ifstream gradingFile("grading.txt");
+    std::ifstream gradingFile("grading.txt");
     if (!gradingFile.is_open())
     {
-        cout << "Error opening grading file." << endl;
+        std::cerr << "Error opening grading file: " << std::strerror(errno) << std::endl;
         return;
     }
 
     bool found = false;
-    string line;
-    while (getline(gradingFile, line))
+    std::string line;
+    while (std::getline(gradingFile, line))
     {
-        stringstream ss(line);
-        string name, id, courseCode, grade;
+        std::stringstream ss(line);
+        std::string name, id, courseCode, grade;
 
         ss >> name >> id >> courseCode >> grade;
 
         if (name == studentName && id == studentID)
         {
             found = true;
-            cout << "Course: " << courseCode << ", Grade: " << grade << endl;
+            std::cout << "Course: " << courseCode << ", Grade: " << grade << std::endl;
         }
     }
 
@@ -159,10 +162,9 @@ void displayGrades(const string& studentName, const string& studentID)
 
     if (!found)
     {
-        cout << "No grades found for " << studentName << " with ID " << studentID << "." << endl;
+        std::cout << "No grades found for " << studentName << " with ID " << studentID << "." << std::endl;
     }
 }
-
 
 int main()
 {
